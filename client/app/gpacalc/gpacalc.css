@@ -33,3 +33,7 @@ a {
     font-size: 115%;
     background-color: floralwhite;
 }
+
+.padding {
+    padding: 15px;
+}

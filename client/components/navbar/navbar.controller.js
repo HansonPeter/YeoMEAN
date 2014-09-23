@@ -2,12 +2,16 @@
 
 angular.module('yeoMeanApp')
   .controller('NavbarCtrl', function ($scope, $location) {
-    $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
-    },
-    {'title': 'UMM',
-    'link': '/umm'}];
+    $scope.menu = [
+        {'title': 'Home',
+         'link': '/'
+        },
+        {'title': 'UMM',
+         'link': '/umm'
+        },
+        {'title': 'GPA Calculator',
+         'link': '/gpacalc'
+        }];
 
     $scope.isCollapsed = true;
 

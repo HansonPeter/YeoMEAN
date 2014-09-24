@@ -3,18 +3,22 @@ body {
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
     background-color: #FFF9CC;
 }
+
 a {
     color: #00B7FF;
 }
+
 .done-true {
     text-decoration: line-through;
     color: grey;
 }
+
 .section {
     border-radius: 10px;
     padding: 20px;
     background-color: #FFCCD9;
 }
+
 .section2 {
     border-radius: 20px;
     padding: 20px;
@@ -22,9 +26,11 @@ a {
     color: #f5f5f5;
     font-size: 115%;
 }
+
 .headingsRow {
     color: navajowhite;
 }
+
 .fancybutton {
     border-radius: 10px;
     padding: 10px;

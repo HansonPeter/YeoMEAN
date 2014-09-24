@@ -29,10 +29,10 @@ angular.module('yeoMeanApp')
         // Plus, they can technically choose less than four courses by choosing 0 credits.
         // Also, four tends to be the average.
         $scope.classes = [
+            /*{letter: "", gradePoints: 0, credits: 0},
             {letter: "", gradePoints: 0, credits: 0},
             {letter: "", gradePoints: 0, credits: 0},
-            {letter: "", gradePoints: 0, credits: 0},
-            {letter: "", gradePoints: 0, credits: 0}
+            {letter: "", gradePoints: 0, credits: 0}*/
         ];
 
         // These are the possible grades we consider and their gradepoints.
@@ -92,12 +92,16 @@ angular.module('yeoMeanApp')
 
         // Adds another class to be used to calculate the GPA.
         $scope.addClass = function() {
-            classes.push
+            var course = {name: $scope.courseName, letter: "", gradePoints: 0, credits: 0};
+            $scope.courseName = '';
+            $scope.classes.push(course);
         };
 
         // Removes a class being used to calculate the GPA.
-        $scope.removeClass = function() {
-
+        // Removes from the given index as it is bound to the position of the
+        // course in classes.
+        $scope.removeClass = function(index) {
+            $scope.classes.splice(index, 1);
         };
 
         // Came from the code we copied above.

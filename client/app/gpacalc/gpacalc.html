@@ -13,45 +13,71 @@
 <div class="col-md-4 col-md-offset-1 section2">
     <div>
         <table style="width:100%">
+
             <!-- This row just gives headings for the columns. -->
             <tr class="headingsRow">
                 <td>GPA Calculator!</td>
                 <td>Select Grade</td>
                 <td>Select Credits</td>
             </tr>
+
             <!-- This will use ng-repeats to data bind with the classes array so anything
             updated here will update there. ng-repeat is used more than once to also show
             all the grade and credit options in the dropdown menus. -->
             <tr ng-repeat="class in classes track by $index">
-                <td>Class {{$index + 1}}</td>
+
+                <td>{{classes[$index].name}}</td>
+
                 <td>
-                    <div class="btn-group" dropdown is-open="statuses.isopen{{$index+1}}">
+                    <div class="btn-group" dropdown is-open="gradeStatuses.isopen{{$index+1}}">
                         <button type="button" class="btn fancybutton dropdown-toggle">
                             {{class.letter}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li ng-repeat="grade in grades">
-                                <a href="#" ng-click="selectGrade(class, grade)">{{grade.letter}}</a>
+                                <a href="" ng-click="selectGrade(class, grade)">{{grade.letter}}</a>
                             </li>
                         </ul>
                     </div>
                 </td>
+
                 <td>
-                    <div class="btn-group" dropdown is-open="statuses.isopen{{$index+5}}">
+                    <div class="btn-group" dropdown is-open="creditStatuses.isopen{{$index+1}}">
                         <button type="button" class="btn fancybutton dropdown-toggle">
                             {{class.credits}} <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li ng-repeat="credit in credits">
-                                <a href="#" ng-click="selectCredit(class, credit)">{{credit}}</a>
+                                <a href="" ng-click="selectCredit(class, credit)">{{credit}}</a>
                             </li>
                         </ul>
                     </div>
                 </td>
+
+                <!-- A button is added to each course in the table so that it can be deleted. -->
+                <td>
+                    <form ng-submit="removeClass($index)">
+                        <input class="btn-primary" type="submit" value="Remove Course">
+                    </form>
+                </td>
+
             </tr>
         </table>
         <!-- This is data bound to update the calculated GPA in real time
         by binding to the output of the calculation method. -->
         <p>{{calculateGPA()}}</p>
+
+        <!-- A button used to add another course. -->
+        <div class="row">
+
+            <div class="col-md-6">
+                <form ng-submit="addClass()">
+                    <input type="text" ng-model="courseName" size="40" placeholder="Enter the course name here!">
+                    <input class="btn-primary" type="submit" value="Add Course">
+                </form>
+            </div>
+
+        </div>
+
     </div>
 </div>

@@ -4,17 +4,22 @@ angular.module('yeoMeanApp')
   .controller('GpacalcCtrl', function ($scope) {
     $scope.message = 'Hello';
 
-        // Keeps track of the states of all the buttons independently
+        // Keeps track of the states of the grade buttons independently
         // using data-binding from angular.
-        $scope.statuses = {
+        $scope.gradeStatuses = {
             isopen1: false,
             isopen2: false,
             isopen3: false,
-            isopen4: false,
-            isopen5: false,
-            isopen6: false,
-            isopen7: false,
-            isopen8: false
+            isopen4: false
+        };
+
+        // Keeps track of the states of the credit buttons independently
+        // using data-binding from angular.
+        $scope.creditStatuses = {
+            isopen1: false,
+            isopen2: false,
+            isopen3: false,
+            isopen4: false
         };
 
         // Each class corresponds to a row in the table for our calculator
@@ -83,6 +88,16 @@ angular.module('yeoMeanApp')
             } else {
                 return "You need to select courses and credits!";
             }
+        };
+
+        // Adds another class to be used to calculate the GPA.
+        $scope.addClass = function() {
+            classes.push
+        };
+
+        // Removes a class being used to calculate the GPA.
+        $scope.removeClass = function() {
+
         };
 
         // Came from the code we copied above.

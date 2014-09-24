@@ -63,7 +63,7 @@
                  It works by removing the course from the array at the current index of the course.-->
                 <td>
                     <form ng-submit="removeClass($index)">
-                        <input class="btn-primary" type="submit" value="Remove Course">
+                        <input class="btn-primary removebutton" type="submit" value="Remove Course">
                     </form>
                 </td>
 
@@ -79,8 +79,8 @@
         <div class="row">
 
                 <form ng-submit="addClass()">
-                    <input type="text" ng-model="courseName" size="25" placeholder="Enter the course name here!">
-                    <input class="btn-primary" type="submit" value="Add Course">
+                    <input class="textbox" type="text" ng-model="courseName" size="25" placeholder="Enter the course name here!">
+                    <input class="btn-primary addbutton" type="submit" value="Add Course">
                 </form>
 
         </div>

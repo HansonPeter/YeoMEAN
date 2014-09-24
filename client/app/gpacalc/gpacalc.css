@@ -1,7 +1,7 @@
 body {
     padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    background-color: #FFF9CC;
+    background-color: lightskyblue;
 }
 
 a {
@@ -20,6 +20,7 @@ a {
 }
 
 .section2 {
+    margin-top: 15px;
     border-radius: 20px;
     padding: 20px;
     background-color: royalblue;
@@ -42,4 +43,19 @@ a {
 
 .padding {
     padding: 15px;
+}
+
+.textbox {
+    background-color: ghostwhite;
+    color: coral;
+    border-radius: 5px;
+}
+
+.addbutton {
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+.removebutton {
+    border-radius: 35px;
 }

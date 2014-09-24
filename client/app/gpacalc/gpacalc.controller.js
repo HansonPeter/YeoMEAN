@@ -1,5 +1,10 @@
 'use strict';
 
+/*
+ Jacob Opdahl, Peter Hanson, Emma Sax
+ Lab 5
+ */
+
 angular.module('yeoMeanApp')
   .controller('GpacalcCtrl', function ($scope) {
     $scope.message = 'Hello';

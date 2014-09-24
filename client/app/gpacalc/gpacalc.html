@@ -26,10 +26,12 @@
             all the grade and credit options in the dropdown menus. -->
             <tr ng-repeat="class in classes track by $index">
 
+                <!-- Used to data-bind to the course name.-->
                 <td>{{classes[$index].name}}</td>
 
                 <td>
                     <div class="btn-group" dropdown is-open="gradeStatuses.isopen{{$index+1}}">
+
                         <button type="button" class="btn fancybutton dropdown-toggle">
                             {{class.letter}} <span class="caret"></span>
                         </button>
@@ -38,11 +40,13 @@
                                 <a href="" ng-click="selectGrade(class, grade)">{{grade.letter}}</a>
                             </li>
                         </ul>
+
                     </div>
                 </td>
 
                 <td>
                     <div class="btn-group" dropdown is-open="creditStatuses.isopen{{$index+1}}">
+
                         <button type="button" class="btn fancybutton dropdown-toggle">
                             {{class.credits}} <span class="caret"></span>
                         </button>
@@ -51,10 +55,12 @@
                                 <a href="" ng-click="selectCredit(class, credit)">{{credit}}</a>
                             </li>
                         </ul>
+
                     </div>
                 </td>
 
-                <!-- A button is added to each course in the table so that it can be deleted. -->
+                <!-- A button is added to each course in the table so that it can be deleted.
+                 It works by removing the course from the array at the current index of the course.-->
                 <td>
                     <form ng-submit="removeClass($index)">
                         <input class="btn-primary" type="submit" value="Remove Course">
@@ -63,19 +69,19 @@
 
             </tr>
         </table>
+
         <!-- This is data bound to update the calculated GPA in real time
         by binding to the output of the calculation method. -->
         <p>{{calculateGPA()}}</p>
 
-        <!-- A button used to add another course. -->
+        <!-- A button is used to add another course.
+        The text in the input box becomes the name. -->
         <div class="row">
 
-            <div class="col-md-6">
                 <form ng-submit="addClass()">
-                    <input type="text" ng-model="courseName" size="40" placeholder="Enter the course name here!">
+                    <input type="text" ng-model="courseName" size="25" placeholder="Enter the course name here!">
                     <input class="btn-primary" type="submit" value="Add Course">
                 </form>
-            </div>
 
         </div>
 

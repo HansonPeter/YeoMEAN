@@ -53,7 +53,7 @@ angular.module('yeoMeanApp')
                     return 2.7;
                     break;
                 case "C+":
-                    return 2.3;
+                    return 2.33;
                     break;
                 case "C":
                     return 2;
@@ -62,7 +62,7 @@ angular.module('yeoMeanApp')
                     return 1.7;
                     break;
                 case "D+":
-                    return 1.3;
+                    return 1.33;
                     break;
                 case "D":
                     return 1;
@@ -85,19 +85,21 @@ angular.module('yeoMeanApp')
                 GPA += ($scope.classes[i].gradePoints * $scope.classes[i].credits);
                 totalCredits += $scope.classes[i].credits;
             };
+
             if (totalCredits != 0) {
                 return "Your estimated GPA: " + (GPA / totalCredits);
             } else {
                 return "You need to select courses and credits!";
-            }                   //Update classes to have the same data that's in the database on the server
+            }
 
-        };
+     };
 
      // Adds another class to be used to the database, and then updates the array.
      $scope.addClass = function() {
             if ($scope.courseName === '') {
                 return;
             }
+
             $http.post('/api/courses', {name: $scope.courseName,
                                         grade: $scope.gradeValue,
                                         gradePoints: $scope.convertGradeToGPA($scope.gradeValue),
@@ -106,20 +108,21 @@ angular.module('yeoMeanApp')
                 $http.get('/api/courses').success(function(classes) {
                     $scope.classes = classes;
                 });
+
                 $scope.courseName = '';
                 $scope.gradeValue = '';
                 $scope.creditValue = '';
             });
      };
 
-           // Removes a class being used to calculate the GPA from the database.
-           // Then updates the array based on the db.
-           $scope.removeClass = function(course) {
-               $http.delete('/api/courses/' + course._id).success(function(){
-                   //Update classes to have the same data that's in the database on the server
-                   $http.get('/api/courses').success(function(classes) {
-                       $scope.classes = classes;
-                   });
-               });
-           };
+     // Removes a class being used to calculate the GPA from the database.
+     // Then updates the array based on the db.
+     $scope.removeClass = function(course) {
+         $http.delete('/api/courses/' + course._id).success(function(){
+             //Update classes to have the same data that's in the database on the server
+             $http.get('/api/courses').success(function(classes) {
+                 $scope.classes = classes;
+             });
+         });
+     };
   });

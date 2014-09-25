@@ -42,7 +42,7 @@ angular.module('yeoMeanApp')
             {letter: "", gradePoints: 0, credits: 0}*/
         ];
 
-        $http.get('/api/course').success(function(classes) {
+        $http.get('/api/courses').success(function(classes) {
             $scope.classes = classes;
         });
 
@@ -71,18 +71,6 @@ angular.module('yeoMeanApp')
             4,
             5
         ];
-
-        // Set the grade in classes[] when a grade is selected
-        // from a dropdown.
-        $scope.selectGrade = function(course, grade) {
-            course.letter = grade.letter;
-            course.gradePoints = grade.gradePoints;
-        };
-
-        // Same as previous but with credits.
-        $scope.selectCredit = function(course, credit) {
-            course.credits = credit;
-        };
 
         // Uses the information in the classes array which has been updated
         // using data binding to calculate the GPA and instantly display it
@@ -113,8 +101,6 @@ angular.module('yeoMeanApp')
                 });
                 $scope.courseName = '';
             });
-            //var course = {name: $scope.courseName, letter: "", gradePoints: 0, credits: 0};
-            //$scope.classes.push(course);
         };
 
         // Removes a class being used to calculate the GPA.
@@ -127,7 +113,24 @@ angular.module('yeoMeanApp')
                     $scope.classes = classes;
                 });
             });
-            //$scope.classes.splice(index, 1);
+        };
+
+        // Set the grade in classes[] when a grade is selected
+        // from a dropdown.
+        $scope.selectGrade = function(course, letter) {
+           $http.patch('/api/courses/' + course._id).success(function(){
+               $http.get('/api/courses').success(function(classes) {
+                   $scope.classes = classes;
+               });
+           });
+
+           /* course.letter = grade.letter;
+            course.gradePoints = grade.gradePoints;*/
+        };
+
+        // Same as previous but with credits.
+        $scope.selectCredit = function(course, credit) {
+            course.credits = credit;
         };
 
         // Came from the code we copied above.

@@ -6,9 +6,10 @@
  */
 
 angular.module('yeoMeanApp')
-  .controller('GpacalcCtrl', function ($scope) {
+  .controller('GpacalcCtrl', function ($scope, $http) {
     $scope.message = 'Hello';
 
+        /*
         // Keeps track of the states of the grade buttons independently
         // using data-binding from angular.
         $scope.gradeStatuses = {
@@ -26,6 +27,7 @@ angular.module('yeoMeanApp')
             isopen3: false,
             isopen4: false
         };
+        */
 
         // Each class corresponds to a row in the table for our calculator
         // and is updated using data-binding.
@@ -39,6 +41,10 @@ angular.module('yeoMeanApp')
             {letter: "", gradePoints: 0, credits: 0},
             {letter: "", gradePoints: 0, credits: 0}*/
         ];
+
+        $http.get('/api/course').success(function(classes) {
+            $scope.classes = classes;
+        });
 
         // These are the possible grades we consider and their gradepoints.
         $scope.grades = [
@@ -97,16 +103,31 @@ angular.module('yeoMeanApp')
 
         // Adds another class to be used to calculate the GPA.
         $scope.addClass = function() {
-            var course = {name: $scope.courseName, letter: "", gradePoints: 0, credits: 0};
-            $scope.courseName = '';
-            $scope.classes.push(course);
+            if ($scope.courseName == "") {
+                return;
+            }
+            $http.post('/api/courses', {name: $scope.courseName, grade: "", gradePoints: 0, credits: 0}).success(function(){
+                //Update classes to have same data that's in the database on the server
+                $http.get('/api/courses').success(function(classes) {
+                    $scope.classes = classes;
+                });
+                $scope.courseName = '';
+            });
+            //var course = {name: $scope.courseName, letter: "", gradePoints: 0, credits: 0};
+            //$scope.classes.push(course);
         };
 
         // Removes a class being used to calculate the GPA.
         // Removes from the given index as it is bound to the position of the
         // course in classes.
-        $scope.removeClass = function(index) {
-            $scope.classes.splice(index, 1);
+        $scope.removeClass = function(course) {
+            $http.delete('/api/courses/' + course._id).success(function(){
+                //Update classes to have the same data that's in the database on the server
+                $http.get('/api/courses').success(function(classes) {
+                    $scope.classes = classes;
+                });
+            });
+            //$scope.classes.splice(index, 1);
         };
 
         // Came from the code we copied above.

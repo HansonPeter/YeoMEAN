@@ -5,8 +5,9 @@ var mongoose = require('mongoose'),
 
 var CourseSchema = new Schema({
   name: String,
-  info: String,
-  active: Boolean
+  grade: String,
+  gradePoints: Number,
+  credits: Number
 });
 
 module.exports = mongoose.model('Course', CourseSchema);

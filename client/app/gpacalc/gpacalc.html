@@ -8,7 +8,7 @@ Lab 5
 <header class="hero-unit" id="banner">
     <div class="container">
         <h1>Calculate your GPA!</h1>
-        <p class="lead"><small>Designed by Jacob Opdahl, Peter Hanson, Emma Sax</small></p>
+        <p class="lead"><small>Designed by Peter Hanson, Jacob Opdahl, Emma Sax</small></p>
     </div>
 </header>
 
@@ -19,9 +19,10 @@ Lab 5
 
             <!-- This row just gives headings for the columns. -->
             <tr class="headingsRow">
-                <td>GPA Calculator!</td>
+                <td>Course Names</td>
                 <td>Select Grade</td>
                 <td>Select Credits</td>
+                <td>GPA Calculator!</td>
             </tr>
 
             <!-- This will use ng-repeats to data bind with the classes array so anything
@@ -33,7 +34,7 @@ Lab 5
                 <td>{{classes[$index].name}}</td>
 
                 <td>
-                    <div class="btn-group" dropdown is-open="gradeStatuses.isopen{{$index+1}}">
+                    <div class="btn-group" dropdown> <!--is-open="gradeStatuses.isopen{{$index+1}}"-->
 
                         <button type="button" class="btn fancybutton dropdown-toggle">
                             {{class.letter}} <span class="caret"></span>
@@ -48,7 +49,7 @@ Lab 5
                 </td>
 
                 <td>
-                    <div class="btn-group" dropdown is-open="creditStatuses.isopen{{$index+1}}">
+                    <div class="btn-group" dropdown> <!--is-open="creditStatuses.isopen{{$index+1}}"-->
 
                         <button type="button" class="btn fancybutton dropdown-toggle">
                             {{class.credits}} <span class="caret"></span>
@@ -65,7 +66,7 @@ Lab 5
                 <!-- A button is added to each course in the table so that it can be deleted.
                  It works by removing the course from the array at the current index of the course.-->
                 <td>
-                    <form ng-submit="removeClass($index)">
+                    <form ng-submit="removeClass(class)">
                         <input class="btn-primary removebutton" type="submit" value="Remove Course">
                     </form>
                 </td>
@@ -82,7 +83,7 @@ Lab 5
         <div class="row">
 
                 <form ng-submit="addClass()">
-                    <input class="textbox" type="text" ng-model="courseName" size="25" placeholder="Enter the course name here!">
+                    <input class="textbox" type="text" ng-model="courseName" size="25" placeholder="Enter course name here!">
                     <input class="btn-primary addbutton" type="submit" value="Add Course">
                 </form>
 

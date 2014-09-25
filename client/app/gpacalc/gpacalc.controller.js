@@ -7,62 +7,20 @@
 
 angular.module('yeoMeanApp')
   .controller('GpacalcCtrl', function ($scope, $http) {
-    $scope.message = 'Hello';
-
-        /*
-        // Keeps track of the states of the grade buttons independently
-        // using data-binding from angular.
-        $scope.gradeStatuses = {
-            isopen1: false,
-            isopen2: false,
-            isopen3: false,
-            isopen4: false
-        };
-
-        // Keeps track of the states of the credit buttons independently
-        // using data-binding from angular.
-        $scope.creditStatuses = {
-            isopen1: false,
-            isopen2: false,
-            isopen3: false,
-            isopen4: false
-        };
-        */
 
         // Each class corresponds to a row in the table for our calculator
         // and is updated using data-binding.
-        // Note, we could've added buttons to allow users to add or remove buttons,
-        // but we instead spent our time trying to help KK find a way to test Angular.
-        // Plus, they can technically choose less than four courses by choosing 0 credits.
-        // Also, four tends to be the average.
-        $scope.classes = [
-            /*{letter: "", gradePoints: 0, credits: 0},
-            {letter: "", gradePoints: 0, credits: 0},
-            {letter: "", gradePoints: 0, credits: 0},
-            {letter: "", gradePoints: 0, credits: 0}*/
-        ];
+        // This fills up by getting courses from the database in various places.
+        $scope.classes = [];
 
+        // Updates calculator with courses from the database anytime the page loads.
         $http.get('/api/courses').success(function(classes) {
             $scope.classes = classes;
         });
 
-        // These are the possible grades we consider and their gradepoints.
-        $scope.grades = [
-            {letter: 'A', gradePoints: 4},
-            {letter: 'A-', gradePoints: 3.67},
-            {letter: 'B+', gradePoints: 3.33},
-            {letter: 'B', gradePoints: 3},
-            {letter: 'B-', gradePoints: 2.67},
-            {letter: 'C+', gradePoints: 2.33},
-            {letter: 'C', gradePoints: 2},
-            {letter: 'C-', gradePoints: 1.67},
-            {letter: 'D+', gradePoints: 1.33},
-            {letter: 'D', gradePoints: 1},
-            {letter: 'F', gradePoints: 0}
-        ];
-
-        // Possible credits a course could have.
-        // Selecting 0 is equivalent to taking one less class for calculation.
+        /*
+         * Originally used to make drop-down buttons, kept later as reference
+         * to know the number of possible credits desired.
         $scope.credits = [
             0,
             1,
@@ -71,6 +29,47 @@ angular.module('yeoMeanApp')
             4,
             5
         ];
+        */
+
+            $scope.convertGradeToGPA = function(grade) { //This is a function that is a switch to determine how many
+                switch (grade) { //grade points to give for a grade. If any other letter is given
+                    case "A": //that is not a traditional grade, the default amount of grade points
+                        return 4; //given is zero.
+                        break;
+                    case "A-":
+                        return 3.7;
+                        break;
+                    case "B+":
+                        return 3.33;
+                        break;
+                    case "B":
+                        return 3;
+                        break;
+                    case "B-":
+                        return 2.7;
+                        break;
+                    case "C+":
+                        return 2.3;
+                        break;
+                    case "C":
+                        return 2;
+                        break;
+                    case "C-":
+                        return 1.7;
+                        break;
+                    case "D+":
+                        return 1.3;
+                        break;
+                    case "D":
+                        return 1;
+                        break;
+                    case "F":
+                        return 0;
+                        break;
+                    default:
+                        return 0;
+                };
+            };
 
         // Uses the information in the classes array which has been updated
         // using data binding to calculate the GPA and instantly display it
@@ -94,7 +93,10 @@ angular.module('yeoMeanApp')
             if ($scope.courseName === '') {
                 return;
             }
-            $http.post('/api/courses', {name: $scope.courseName, grade: $scope.gradeValue, gradePoints: 0, credits: $scope.creditValue}).success(function(){
+            $http.post('/api/courses', {name: $scope.courseName,
+                                        grade: $scope.gradeValue,
+                                        gradePoints: $scope.convertGradeToGPA($scope.gradeValue),
+                                        credits: $scope.creditValue}).success(function(){
                 //Update classes to have same data that's in the database on the server
                 $http.get('/api/courses').success(function(classes) {
                     $scope.classes = classes;
@@ -105,9 +107,8 @@ angular.module('yeoMeanApp')
             });
         };
 
-        // Removes a class being used to calculate the GPA.
-        // Removes from the given index as it is bound to the position of the
-        // course in classes.
+        // Removes a class being used to calculate the GPA from the database.
+        // Then updates the array based on the db.
         $scope.removeClass = function(course) {
             $http.delete('/api/courses/' + course._id).success(function(){
                 //Update classes to have the same data that's in the database on the server
@@ -116,35 +117,4 @@ angular.module('yeoMeanApp')
                 });
             });
         };
-
-        // Set the grade in classes[] when a grade is selected
-        // from a dropdown.
-        $scope.selectGrade = function(course, letter) {
-           $http.patch('/api/courses/' + course._id).success(function(){
-               $http.get('/api/courses').success(function(classes) {
-                   $scope.classes = classes;
-               });
-           });
-
-           /* course.letter = grade.letter;
-            course.gradePoints = grade.gradePoints;*/
-        };
-
-        // Same as previous but with credits.
-        $scope.selectCredit = function(course, credit) {
-            course.credits = credit;
-        };
-
-        // Came from the code we copied above.
-        $scope.toggled = function(open) {
-            console.log('Dropdown is now: ', open);
-        };
-
-        // Came from the code we copied above.
-        $scope.toggleDropdown = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            $scope.status.isopen = !$scope.status.isopen;
-        };
-
   });

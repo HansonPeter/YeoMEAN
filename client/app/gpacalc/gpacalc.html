@@ -20,51 +20,26 @@ Lab 5
             <!-- This row just gives headings for the columns. -->
             <tr class="headingsRow">
                 <td>Course Names</td>
-                <td>Select Grade</td>
-                <td>Select Credits</td>
+                <td>Grade</td>
+                <td>Credits</td>
                 <td>GPA Calculator!</td>
             </tr>
 
-            <!-- This will use ng-repeats to data bind with the classes array so anything
-            updated here will update there. ng-repeat is used more than once to also show
-            all the grade and credit options in the dropdown menus. -->
             <tr ng-repeat="class in classes track by $index">
 
                 <!-- Used to data-bind to the course name.-->
                 <td>{{classes[$index].name}}</td>
 
                 <td>
-                    <div class="btn-group" dropdown> <!--is-open="gradeStatuses.isopen{{$index+1}}"-->
-
-                        <button type="button" class="btn fancybutton dropdown-toggle">
-                            {{class.grade}} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="grade in grades">
-                                <a href="" ng-click="selectGrade(class, grade)">{{grade.letter}}</a>
-                            </li>
-                        </ul>
-
-                    </div>
+                    {{class.grade}}
                 </td>
 
                 <td>
-                    <div class="btn-group" dropdown> <!--is-open="creditStatuses.isopen{{$index+1}}"-->
-
-                        <button type="button" class="btn fancybutton dropdown-toggle">
-                            {{class.credits}} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-repeat="credit in credits">
-                                <a href="" ng-click="selectCredit(class, credit)">{{credit}}</a>
-                            </li>
-                        </ul>
-
-                    </div>
+                    {{class.credits}}
                 </td>
 
                 <!-- A button is added to each course in the table so that it can be deleted.
-                 It works by removing the course from the array at the current index of the course.-->
+                 It works by removing the course from the database-->
                 <td>
                     <form ng-submit="removeClass(class)">
                         <input class="btn-primary removebutton" type="submit" value="Remove Course">
@@ -79,11 +54,39 @@ Lab 5
         <p>{{calculateGPA()}}</p>
 
         <!-- A button is used to add another course.
-        The text in the input box becomes the name. -->
+        The text in the input box becomes the name. There are dropdown buttons to select
+        grade and credits-->
         <div class="row">
 
-                <form ng-submit="addClass()">
+                <form role="form" ng-submit="addClass()">
                     <input class="textbox" type="text" ng-model="courseName" size="25" placeholder="Enter course name here!">
+
+                    <input class="textbox" type="text" ng-model="gradeValue" size="5" placeholder="Grade!">
+
+                    <input class="textbox" type="number" ng-model="creditValue" size="5" placeholder="Credits!">
+
+                    <!--<div class="btn-group" dropdown>
+                        <button type="button" class="btn fancybutton dropdown-toggle" ng-model="gradeValue">
+                            {{class.grade}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-repeat="grade in grades">
+                                <a href="" ng-click="selectGrade(class, grade)">{{grade.letter}}</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="btn-group" dropdown>
+                        <button type="button" class="btn fancybutton dropdown-toggle" ng-model="creditValue">
+                            {{class.credits}} <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-repeat="credit in credits">
+                                <a href="" ng-click="selectCredit(class, credit)">{{credit}}</a>
+                            </li>
+                        </ul>
+                    </div>-->
+
                     <input class="btn-primary addbutton" type="submit" value="Add Course">
                 </form>
 

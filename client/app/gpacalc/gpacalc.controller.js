@@ -91,15 +91,17 @@ angular.module('yeoMeanApp')
 
         // Adds another class to be used to calculate the GPA.
         $scope.addClass = function() {
-            if ($scope.courseName == "") {
+            if ($scope.courseName === '') {
                 return;
             }
-            $http.post('/api/courses', {name: $scope.courseName, grade: "", gradePoints: 0, credits: 0}).success(function(){
+            $http.post('/api/courses', {name: $scope.courseName, grade: $scope.gradeValue, gradePoints: 0, credits: $scope.creditValue}).success(function(){
                 //Update classes to have same data that's in the database on the server
                 $http.get('/api/courses').success(function(classes) {
                     $scope.classes = classes;
                 });
                 $scope.courseName = '';
+                $scope.gradeValue = '';
+                $scope.creditValue = '';
             });
         };
 

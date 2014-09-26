@@ -10,7 +10,7 @@ angular.module('yeoMeanApp')
     });
 
     $scope.addMovie = function() {
-        if($scope.newMovie === ''  || $scope.newRating === '') {
+        if($scope.newMovie == ''  || $scope.newRating == '') {
             return;
         }
         $http.post('/api/movies', { name: $scope.newMovie, rating: $scope.newRating }).success(function(){

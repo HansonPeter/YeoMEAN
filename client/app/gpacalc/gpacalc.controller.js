@@ -99,7 +99,7 @@ angular.module('yeoMeanApp')
             if ($scope.courseName == '' ||
                 $scope.gradeValue == '' ||
                 $scope.creditValue < 0 ||
-                $scope.creditValue > 5) {
+                $scope.creditValue > 5) { //can't check if the credit spot is empty because it's a number input, not string
                 return;
             }
 

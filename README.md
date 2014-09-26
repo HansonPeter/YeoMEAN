@@ -9,39 +9,37 @@ Lab 5
 ## Answers to Questions:
 What are some of the dependencies of the project (i.e. which libraries does it depend on)? Hint: dependencies are in .json files. Look up four libraries and briefly explain what they each do.
 
-  grunt-mocha-test: A grunt task for running server side mocha tests.
+* grunt-mocha-test: A grunt task for running server side mocha tests.
   
-  karma-firefox-launcher: A launcher for firefox so applications will open in Firefox.
+* karma-firefox-launcher: A launcher for firefox so applications will open in Firefox.
   
-  karma-jade-preprocessor: Preprocessor to compile Handlebars on the fly.
-      
-      Handlebars provide the power to let semantic templates effectively be built with no frustration.
+* karma-jade-preprocessor: Preprocessor to compile Handlebars on the fly. Handlebars provide the power to let semantic templates effectively be built with no frustration.
   
-  grunt-angular-templates: Grunt build task to put together and register AngularJS templates.
+* grunt-angular-templates: Grunt build task to put together and register AngularJS templates.
 
 What is the structure of the project? What is the purpose of each folder?
 
-  Client is where the front-end material exists. All the HTML files, JS files, CSS files, etc are in the app folder underneath the client folder; this is where the bulk of our work was done. Within app we see three folders, gpacalc, main, umm. Umm and main is Brian's work. Gpacalc is the folder where we put our lab. These all represent different pages on the website. Bower-components is where all of the angular functionality comes from. Components holds the modal and navigation bar; the navigation bar is present on the top of all of the pages, and we added our page to it. It appears that node_modules holds all of the dependencies talked about above. Server is the back-end portion of our work. Within server is the folder api where we stored our virtual databases. Within that we have the folder course which is the database we used for our lab.
+* Client is where the front-end material exists. All the HTML files, JS files, CSS files, etc are in the app folder underneath the client folder; this is where the bulk of our work was done. Within app we see three folders, gpacalc, main, umm. Umm and main is Brian's work. Gpacalc is the folder where we put our lab. These all represent different pages on the website. Bower-components is where all of the angular functionality comes from. Components holds the modal and navigation bar; the navigation bar is present on the top of all of the pages, and we added our page to it. It appears that node_modules holds all of the dependencies talked about above. Server is the back-end portion of our work. Within server is the folder api where we stored our virtual databases. Within that we have the folder course which is the database we used for our lab.
 
 What are models? Where are they located? What does the current model describe?
 
-  Models are how we define how we want our structure of the courses to work. We define these through the schema, which controls the organization of our database. Our model/schema is located in server/api/course/course.model.js. Our current model is an object which contains the course name, grade, gradePoints, and credits.
+* Models are how we define how we want our structure of the courses to work. We define these through the schema, which controls the organization of our database. Our model/schema is located in server/api/course/course.model.js. Our current model is an object which contains the course name, grade, gradePoints, and credits.
 
 What are views? Where are they located? What is a layout? What is a partial? Identify places where a layout renders partials.
 
-  Views are formatting for how the page will look. The views for our page are located in server/views/404.html and in our html files in the client side. Layout is how each specific page is organized. Partials are the segments that are pieces of the webpage that will apply to all webpages. Examples are the title header or the navigation bar; it's the default part of a new page. The folder client/components is where we store all of our partials. They include the modal and the navigation bar. We then also have to reference them in our specific html files.
+* Views are formatting for how the page will look. The views for our page are located in server/views/404.html and in our html files in the client side. Layout is how each specific page is organized. Partials are the segments that are pieces of the webpage that will apply to all webpages. Examples are the title header or the navigation bar; it's the default part of a new page. The folder client/components is where we store all of our partials. They include the modal and the navigation bar. We then also have to reference them in our specific html files.
 
 Schemas describe mongodb database schemas. What schema does your project have? What gets stored in the database?
 
-  Schemas are the database controllers which describe the organization and layout of the database. They define the shape of documents in the database. Our schema uses a array of objects with the course name, grade, gradePoints, and credits.
+* Schemas are the database controllers which describe the organization and layout of the database. They define the shape of documents in the database. Our schema uses a array of objects with the course name, grade, gradePoints, and credits.
 
 What are routes? Open the route. Explain how each type of request gets processed. How does the resulting page change? How does the data in the database change?
 
-  Routes are the methods that give the information to the client which presents it on the webpage. The routes that we used mostly boil down to adding and removing data from the database. The data being added to the database has a query being sent; the query is either approved and the data is stored or the query is denied and the data is not stored. On a pull the query is sent and upon approval the data is sent to the page from the server. The page then displays the data. The data in the database does not leave the database when the data is called unless a deletion query is called.
+* Routes are the methods that give the information to the client which presents it on the webpage. The routes that we used mostly boil down to adding and removing data from the database. The data being added to the database has a query being sent; the query is either approved and the data is stored or the query is denied and the data is not stored. On a pull the query is sent and upon approval the data is sent to the page from the server. The page then displays the data. The data in the database does not leave the database when the data is called unless a deletion query is called.
 
 Explain how the result GPA result is calculated and how it gets rendered on the page.
 
-  Upon adding a class to the database, the gradePoints is automatically calculated through a switch function. Then the objects in the database are pulled to the local array. Then the HTML file reads the array our function calculateGPA is called through two-way data binding from the HTML page. 
+* Upon adding a class to the database, the gradePoints is automatically calculated through a switch function. Then the objects in the database are pulled to the local array. Then the HTML file reads the array our function calculateGPA is called through two-way data binding from the HTML page. 
 
 ## Dependencies to run:
 

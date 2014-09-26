@@ -96,7 +96,10 @@ angular.module('yeoMeanApp')
 
      // Adds another class to be used to the database, and then updates the array.
      $scope.addClass = function() {
-            if ($scope.courseName === '') {
+            if ($scope.courseName == '' ||
+                $scope.gradeValue == '' ||
+                $scope.creditValue < 0 ||
+                $scope.creditValue > 5) {
                 return;
             }
 

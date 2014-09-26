@@ -49,8 +49,10 @@ describe('Controller: GpacalcCtrl', function () {
             scope.gradeValue = "A";
             scope.creditValue = 2;
             scope.addClass();
+
             //all of the http requests are added into a queue and are all run when the flush() method is called
             httpBackend.flush();
+
             expect(classes[0]).toEqual({name:"IS 2001H", grade: "A", gradePoints: 4, credits: 2});
         });
 
@@ -59,12 +61,36 @@ describe('Controller: GpacalcCtrl', function () {
             scope.gradeValue = "A";
             scope.creditValue = 2;
             scope.addClass();
+
             //The _id is used so the correct course is deleted from the database
             scope.removeClass({name:"IS 2001H", grade: "A", gradePoints: 4, credits: 2, _id:1});
+
             httpBackend.flush();
+
             expect(classes.length).toEqual(0);
             expect(classes[0]).toEqual(undefined);
         });
 
+        it('should add 3 classes and the array length classes should become 3', function() {
+            scope.courseName = "IS 2001H";
+            scope.gradeValue = "A-";
+            scope.creditValue = 2;
+            scope.addClass();
+
+            scope.courseName = "MATH 2101";
+            scope.gradeValue = "B+";
+            scope.creditValue = 4;
+            scope.addClass();
+
+            scope.courseName = "CSCI 3601";
+            scope.gradeValue = "A";
+            scope.creditValue = 5;
+            scope.addClass();
+
+            httpBackend.flush();
+
+            expect(classes.length).toEqual(3);
+            expect(classes[1]).toEqual({name:"MATH 2101", grade: "B+", gradePoints: 3.33, credits: 4});
+        });
     });
-})
+});

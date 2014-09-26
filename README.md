@@ -31,7 +31,7 @@ What are views? Where are they located? What is a layout? What is a partial? Ide
 
 Schemas describe mongodb database schemas. What schema does your project have? What gets stored in the database?
 
-*Schemas are the database controllers which describe the organization and layout of the database. They define the shape of documents in the database. Our schema uses a array of objects with the course name, grade, gradePoints, and credits.
+* Schemas are the database controllers which describe the organization and layout of the database. They define the shape of documents in the database. Our schema uses a array of objects with the course name, grade, gradePoints, and credits.
 
 What are routes? Open the route. Explain how each type of request gets processed. How does the resulting page change? How does the data in the database change?
 
